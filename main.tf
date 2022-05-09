@@ -38,27 +38,6 @@ resource "aws_backup_selection" "example" {
   ]
 }
 
-#####
-# IAM Role
-#####
-resource "aws_iam_role" "backup_role" {
-  name               = "aurora_backup_role"
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": ["sts:AssumeRole"],
-      "Effect": "allow",
-      "Principal": {
-        "Service": ["backup.amazonaws.com"]
-      }
-    }
-  ]
-}
-POLICY
-}
-
 resource "aws_iam_role_policy_attachment" "backup_role" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
   role       = var.iam_role_name
